@@ -3,7 +3,9 @@ package com.example.root.shit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,29 +27,35 @@ public class CameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_camera, container, false);
+        View view = inflater.inflate(R.layout.fragment_camera, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("CameraF", "onStart");
+
+        View decorView = getActivity().getWindow().getDecorView();
+// Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        Log.d("CameraF", "onResume");
         ((AppCompatActivity)getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        ((AppCompatActivity)getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("CameraF", "onStop");
+        ((AppCompatActivity)getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
 //        cameraView.stop();
     }
 
