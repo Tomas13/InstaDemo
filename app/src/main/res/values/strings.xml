@@ -9,5 +9,7 @@
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="create">Create new account</string>
 
 </resources>
