@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_orange_light"
     android:fitsSystemWindows="true"
-    tools:context="com.example.root.shit.ProfileFragment">
+    tools:context="com.example.root.shit.view.ProfileFragment">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

@@ -1,4 +1,4 @@
-package com.example.root.shit;
+package com.example.root.shit.view;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.example.root.shit.R;
 
 
 /**

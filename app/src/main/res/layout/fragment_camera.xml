@@ -1,14 +1,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/holo_purple"
     android:layout_height="match_parent"
-    tools:context="com.example.root.shit.CameraFragment">
+    android:fitsSystemWindows="true"
+    tools:context="com.example.root.shit.view.CameraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.flurgle.camerakit.CameraView
+        android:id="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:adjustViewBounds="true" />
 
 </FrameLayout>
