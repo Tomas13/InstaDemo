@@ -18,6 +18,7 @@ import com.birbit.android.jobqueue.JobManager;
 import com.example.root.shit.AppJobManager;
 import com.example.root.shit.R;
 import com.example.root.shit.jobs.CaptureJob;
+import com.flurgle.camerakit.CameraKit;
 import com.flurgle.camerakit.CameraListener;
 import com.flurgle.camerakit.CameraView;
 
@@ -40,7 +41,10 @@ public class CameraFragment extends Fragment {
 
     @BindView(R.id.ibtn_capture)
     ImageButton btnCapture;
-    Bitmap image;
+
+
+    @BindView(R.id.ibtn_switch)
+    ImageButton btnSwitchCamera;
 
     JobManager jobManager;
 
@@ -65,10 +69,9 @@ public class CameraFragment extends Fragment {
 
                 Log.d("Came", result.getByteCount() + "");
 
-                if (result.getByteCount() > 0){
+                if (result.getByteCount() > 0) {
 //                    image = Bitmap.createBitmap(result);
 
-                    btnCapture.setImageBitmap(result);
                     jobManager.addJobInBackground(new CaptureJob(result));
                 }
 
@@ -78,15 +81,30 @@ public class CameraFragment extends Fragment {
 
 
         btnCapture.setOnClickListener(v -> {
-
-
             mCameraView.captureImage();
         });
+
+        btnSwitchCamera.setOnClickListener(v -> switchCamera());
 
 
         return view;
 
 
+    }
+
+    private Boolean facingBack = true;
+
+    private void switchCamera() {
+
+        if (facingBack) {
+
+            mCameraView.setFacing(CameraKit.Constants.FACING_FRONT);
+            facingBack = false;
+        } else {
+
+            mCameraView.setFacing(CameraKit.Constants.FACING_BACK);
+            facingBack = true;
+        }
     }
 
 

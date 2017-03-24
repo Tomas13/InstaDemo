@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +17,38 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/camera_round"
+        app:srcCompat="@drawable/ic_camera_icon50px" />
+
+
+    <ImageButton
+        android:id="@+id/ibtn_switch"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/ibtn_capture"
+        android:background="@drawable/camera_round"
+        android:scaleType="centerInside"
+        android:src="@drawable/switch_camera25px" />
+
+
+    <ImageButton
+        android:id="@+id/ibtn_record"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/ibtn_capture"
+        android:background="@drawable/camera_round"
+        android:src="@drawable/record_25px" />
 
 
 </RelativeLayout>
