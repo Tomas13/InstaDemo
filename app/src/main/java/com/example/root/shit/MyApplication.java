@@ -14,6 +14,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        AppJobManager.getJobManager(this);
+
+
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/sherlocked.ttf")
                 .setFontAttrId(R.attr.fontPath)

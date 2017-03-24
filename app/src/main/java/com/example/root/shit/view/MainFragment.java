@@ -8,8 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.example.root.shit.R;
+import com.example.root.shit.events.CaptureEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -22,6 +31,8 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @BindView(R.id.iv_main2)
+    ImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +41,27 @@ public class MainFragment extends Fragment {
 //        ((AppCompatActivity)getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-        return inflater.inflate(R.layout.fragment_main2, container, false);
+        View view =  inflater.inflate(R.layout.fragment_main2, container, false);
+
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onCaptureEvent(CaptureEvent captureEvent){
+        imageView.setImageBitmap(captureEvent.getBitmap());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 }

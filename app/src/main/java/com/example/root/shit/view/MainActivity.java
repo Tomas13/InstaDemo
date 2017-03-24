@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import com.example.root.shit.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -38,11 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
     private int DEFAULT_FRAGMENT = 1;
 
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -54,14 +61,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(DEFAULT_FRAGMENT);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
     }
 
@@ -136,10 +137,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            switch (position){
-                case 0 : return new CameraFragment();
-                case 1 : return new MainFragment();
-                case 2 : return new ProfileFragment();
+            switch (position) {
+                case 0:
+                    fab.setVisibility(View.GONE);
+                    return new CameraFragment();
+                case 1:
+                    return new MainFragment();
+                case 2:
+                    return new ProfileFragment();
             }
 
             // getItem is called to instantiate the fragment for the given page.
@@ -160,8 +165,12 @@ public class MainActivity extends AppCompatActivity {
 
                     return "SECTION 1";
                 case 1:
+                    fab.setVisibility(View.VISIBLE);
+
                     return "SECTION 2";
                 case 2:
+                    fab.setVisibility(View.VISIBLE);
+
                     return "SECTION 3";
             }
             return null;
