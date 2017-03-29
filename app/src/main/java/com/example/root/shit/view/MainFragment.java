@@ -1,17 +1,21 @@
 package com.example.root.shit.view;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.root.shit.R;
 import com.example.root.shit.events.CaptureEvent;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,8 +35,17 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @BindView(R.id.iv_main2)
-    ImageView imageView;
+    @BindView(R.id.ivFeedBottom)
+    PhotoView imageView;
+
+    @BindView(R.id.btnLike)
+    ImageButton btnLike;
+
+
+    @BindView(R.id.toolbar_main2)
+    Toolbar toolbar;
+
+    private   Boolean isFavorite = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,12 +58,38 @@ public class MainFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        toolbar.setTitle("Time's Up");
+
+        PhotoViewAttacher yourAttacher = new PhotoViewAttacher(imageView);
+        yourAttacher.setZoomable(true);
+
+
+        btnLike.setOnClickListener(v -> {
+
+
+            if (isFavorite) {
+                v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate));
+
+                btnLike.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_heart_outline_grey));
+                isFavorite = false;
+            } else {
+                v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate));
+
+                btnLike.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_heart_red));
+                isFavorite = true;
+            }
+        });
+
+
+
         return view;
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onCaptureEvent(CaptureEvent captureEvent){
-        imageView.setImageBitmap(captureEvent.getBitmap());
+        Bitmap bitmap = captureEvent.getBitmap();
+//        bitmap.setHeight(200);
+        imageView.setImageBitmap(bitmap);
     }
 
     @Override
